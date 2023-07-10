@@ -1,4 +1,4 @@
-package com.myapplication
+package icu.bughub.app.cm
 
 import MainView
 import android.os.Bundle
