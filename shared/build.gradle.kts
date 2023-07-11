@@ -3,6 +3,9 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
+
+    //资源引用
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -30,9 +33,15 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
-                implementation(compose.material)
+                implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
+                //图片加载
+                implementation("media.kamel:kamel-image:0.6.0")
+
+                //资源引用
+                implementation("dev.icerock.moko:resources-compose:0.22.2")
             }
         }
         val androidMain by getting {

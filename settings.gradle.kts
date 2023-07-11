@@ -23,6 +23,9 @@ pluginManagement {
         id("com.android.library").version(agpVersion)
 
         id("org.jetbrains.compose").version(composeVersion)
+
+        //资源引用
+        id("dev.icerock.mobile.multiplatform-resources").version("0.22.2")
     }
 }
 
