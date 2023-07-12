@@ -7,10 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import service.DeviceService
 import ui.components.PagerItem
+import viewmodel.HomeViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen() {
+
+    val homeViewModel = HomeViewModel()
 
     HorizontalPager(
         pageCount = 10,

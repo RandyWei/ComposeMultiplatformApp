@@ -6,6 +6,9 @@ plugins {
 
     //资源引用
     id("dev.icerock.mobile.multiplatform-resources")
+
+    //Json注解
+    kotlin("plugin.serialization") version "1.8.20"
 }
 
 kotlin {
@@ -27,7 +30,7 @@ kotlin {
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
-
+    val ktorVersion = "2.3.1"
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -42,6 +45,13 @@ kotlin {
 
                 //资源引用
                 implementation("dev.icerock.moko:resources-compose:0.22.2")
+
+                //网络请求
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                //网络日志打印插件
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
             }
         }
         val androidMain by getting {
@@ -49,6 +59,9 @@ kotlin {
                 api("androidx.activity:activity-compose:1.6.1")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.9.0")
+
+                //网络请求
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
             }
         }
         val iosX64Main by getting
@@ -59,6 +72,11 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies{
+                //网络请求
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
         }
     }
 }
