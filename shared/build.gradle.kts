@@ -31,6 +31,7 @@ kotlin {
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
     val ktorVersion = "2.3.1"
+    val voyagerVersion = "1.0.0-rc05"
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -52,6 +53,11 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 //网络日志打印插件
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
+
+                // Navigator
+                implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+                // Transitions
+                implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
             }
         }
         val androidMain by getting {

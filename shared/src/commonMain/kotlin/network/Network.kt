@@ -31,6 +31,13 @@ object Network {
             })
         }
 
+        //BaseResponse 插件
+        install(BaseResponsePlugin) {
+            keysForStatus = listOf("code")
+            successCode = "200"
+            keysForData = listOf("result")
+        }
+
     }
 
 }

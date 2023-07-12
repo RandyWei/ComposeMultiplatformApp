@@ -3,4 +3,4 @@ package entity
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TimeEntity(val date: String, val weekday: String)
+data class Sentence(val name: String, val from: String)
