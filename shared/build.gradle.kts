@@ -9,6 +9,19 @@ plugins {
 
     //Json注解
     kotlin("plugin.serialization") version "1.8.20"
+
+    //数据库
+    id("app.cash.sqldelight")
+}
+
+sqldelight {
+    databases {
+        //这个名称为自动生成代码的类名
+        create("DatabaseSchema") {
+            //配置包名
+            packageName.set("icu.bughub.shared.cache")
+        }
+    }
 }
 
 kotlin {
@@ -28,10 +41,12 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+        extraSpecAttributes["resources"] =
+            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
     val ktorVersion = "2.3.1"
     val voyagerVersion = "1.0.0-rc05"
+    val sqlDelightVersion = "2.0.0-rc02"
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -58,6 +73,8 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
                 // Transitions
                 implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+
+                //implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
         val androidMain by getting {
@@ -68,6 +85,9 @@ kotlin {
 
                 //网络请求
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
+
+                //数据库驱动
+                implementation("app.cash.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
         val iosX64Main by getting
@@ -79,9 +99,11 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
 
-            dependencies{
+            dependencies {
                 //网络请求
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                //数据库驱动
+                implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
     }

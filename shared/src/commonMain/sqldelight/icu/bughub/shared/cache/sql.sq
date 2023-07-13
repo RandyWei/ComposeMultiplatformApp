@@ -1,0 +1,5 @@
+insertWord:
+INSERT INTO word(content,`from`,`date`,weekday,imageUrl) VALUES (?,?,?,?,?);
+
+selectWords:
+SELECT * FROM word;

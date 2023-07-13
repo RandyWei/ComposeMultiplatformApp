@@ -26,6 +26,9 @@ pluginManagement {
 
         //资源引用
         id("dev.icerock.mobile.multiplatform-resources").version("0.22.2")
+
+        //数据库
+        id("app.cash.sqldelight").version("2.0.0-rc02")
     }
 }
 

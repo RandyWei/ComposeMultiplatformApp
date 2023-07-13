@@ -5,8 +5,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,6 +38,8 @@ object HomeScreen : Screen {
 
         val uiState by homeViewModel.uiState.collectAsState()
 
+
+
         when (uiState) {
             is HomeUIState.Loading -> {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -47,8 +56,11 @@ object HomeScreen : Screen {
             }
 
             is HomeUIState.Success -> {
+                val words = (uiState as HomeUIState.Success).words
+                val pagerState = rememberPagerState(words.size - 1)
                 HorizontalPager(
-                    pageCount = 10,
+                    pageCount = words.size,
+                    state = pagerState,
                     contentPadding = PaddingValues(
                         start = 32.dp,
                         end = 32.dp,
@@ -57,7 +69,7 @@ object HomeScreen : Screen {
                     ),
                     pageSpacing = 16.dp
                 ) { index ->
-                    val word = (uiState as HomeUIState.Success)
+                    val word = words[index - 1]
                     PagerItem(
                         word.content,
                         word.from,
@@ -65,6 +77,7 @@ object HomeScreen : Screen {
                         word.weekday,
                         word.imageUrl
                     )
+
                 }
             }
         }
