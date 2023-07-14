@@ -36,7 +36,21 @@ class HomeViewModel : ScreenModel {
                         val timeEntityDeferred = async { timeService.getTime() }
 
                         //查询本地存储的所有数据
-                        var words = storeService.selectAll()
+                        //这是一个无声的视频，
+                        //为了能在这个项目里使用导航，我们增加一个查询7天的数据，7天之前的数据
+                        //需要跳到更多页面
+
+                        //SELECT * FROM word ORDER BY id DESC LIMIT 0,7
+                        //这个语句就查询到最新的7条数据，因为id是自增的，所以按id倒序就可以取到的
+                        //最新的，但我们希望取到的是正序的数据，所以再进行一次正序排序
+                        //SELECT * FROM 上面查询到的数据 as Result ORDER BY Result.id
+                        //SELECT * FROM (SELECT * FROM word ORDER BY id DESC LIMIT 0,7) AS Result ORDER BY Result.id
+                        // 注意：在.sq文件中所有sql关键字都要是大写的
+                        //然后make一下项目
+                        //把view model里的selectAll替换一下，就是查询7天的数据了
+
+
+                        var words = storeService.select7Words()
                         val timeEntity = timeEntityDeferred.await()
                         //如果本地数据为空，或者没有当天数据的时候，从网络获取
                         if (words.isEmpty() || words.last().date != timeEntity.date) {
@@ -54,7 +68,7 @@ class HomeViewModel : ScreenModel {
                                 imageEntity?.url ?: ""
                             )
                             //再次查询所有数据
-                            words = storeService.selectAll()
+                            words = storeService.select7Words()
                         }
 
                         _uiState.value = HomeUIState.Success(words)

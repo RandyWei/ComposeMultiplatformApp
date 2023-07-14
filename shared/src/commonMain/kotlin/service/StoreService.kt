@@ -10,4 +10,6 @@ class StoreService {
         databaseSchema.sqlQueries.insertWord(content, from, date, weekday, imageUrl)
     }
 
+    fun select7Words(): List<Word> = databaseSchema.sqlQueries.select7Words().executeAsList()
+
 }

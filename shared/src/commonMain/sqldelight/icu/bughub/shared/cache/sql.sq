@@ -3,3 +3,6 @@ INSERT INTO word(content,`from`,`date`,weekday,imageUrl) VALUES (?,?,?,?,?);
 
 selectWords:
 SELECT * FROM word;
+
+select7Words:
+SELECT * FROM (SELECT * FROM word ORDER BY id DESC LIMIT 0,7) AS Result ORDER BY Result.id;
