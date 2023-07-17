@@ -56,6 +56,10 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
 
+                //在使用导航动画的时候报错：java.lang.NoSuchMethodError: No static method AnimatedContent
+                //安卓需要引入animation库
+                implementation(compose.animation)
+
                 //图片加载
                 implementation("media.kamel:kamel-image:0.6.0")
 
